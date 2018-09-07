@@ -1,6 +1,6 @@
 # go-shopify
 
-Another Shopify Api Library in Go.
+The new home of Conversio's Shopify Go library.
 
 **Note**: The library does not have implementations of all Shopify resources, but it is being used in production by Conversio and should be stable for usage. PRs for new resources and endpoints are welcome, or you can simply implement some yourself as-you-go. See the section "Using your own models" for more info.
 
@@ -10,13 +10,13 @@ Another Shopify Api Library in Go.
 ## Install
 
 ```console
-$ go get github.com/getconversio/go-shopify
+$ go get github.com/bold-commerce/go-shopify
 ```
 
 ## Use
 
 ```go
-import "github.com/getconversio/go-shopify"
+import "github.com/bold-commerce/go-shopify"
 ```
 
 This gives you access to the `goshopify` package.
