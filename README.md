@@ -2,10 +2,10 @@
 
 The new home of Conversio's Shopify Go library.
 
-**Note**: The library does not have implementations of all Shopify resources, but it is being used in production by Conversio and should be stable for usage. PRs for new resources and endpoints are welcome, or you can simply implement some yourself as-you-go. See the section "Using your own models" for more info.
+**Note**: The library does not have implementations of all Shopify resources, but it is being used in production and should be stable for usage. PRs for new resources and endpoints are welcome, or you can simply implement some yourself as-you-go. See the section "Using your own models" for more info.
 
-[![Build Status](https://travis-ci.org/getconversio/go-shopify.svg?branch=master)](https://travis-ci.org/getconversio/go-shopify)
-[![codecov](https://codecov.io/gh/getconversio/go-shopify/branch/master/graph/badge.svg)](https://codecov.io/gh/getconversio/go-shopify)
+[![Build Status](https://travis-ci.org/bold-commerce/go-shopify.svg?branch=master)](https://travis-ci.org/bold-commerce/go-shopify)
+[![codecov](https://codecov.io/gh/bold-commerce/go-shopify/branch/master/graph/badge.svg)](https://codecov.io/gh/bold-commerce/go-shopify)
 
 ## Install
 
