@@ -72,6 +72,22 @@ func TestNewClientWithNoToken(t *testing.T) {
 	}
 }
 
+func TestAppNewClient(t *testing.T) {
+	testClient := app.NewClient("fooshop", "abcd")
+	expected := "https://fooshop.myshopify.com"
+	if testClient.baseURL.String() != expected {
+		t.Errorf("NewClient BaseURL = %v, expected %v", testClient.baseURL.String(), expected)
+	}
+}
+
+func TestAppNewClientWithNoToken(t *testing.T) {
+	testClient := app.NewClient("fooshop", "")
+	expected := "https://fooshop.myshopify.com"
+	if testClient.baseURL.String() != expected {
+		t.Errorf("NewClient BaseURL = %v, expected %v", testClient.baseURL.String(), expected)
+	}
+}
+
 func TestNewRequest(t *testing.T) {
 	testClient := NewClient(app, "fooshop", "abcd")
 
