@@ -165,6 +165,14 @@ func (c *Client) NewRequest(method, urlStr string, body, options interface{}) (*
 	return req, nil
 }
 
+// NewClient returns a new Shopify API client with an already authenticated shopname and
+// token. The shopName parameter is the shop's myshopify domain,
+// e.g. "theshop.myshopify.com", or simply "theshop"
+// a.NewClient(shopName, token) is equivalent to NewClient(a, shopName, token)
+func (a App) NewClient(shopName, token string) *Client {
+	return NewClient(a, shopName, token)
+}
+
 // Returns a new Shopify API client with an already authenticated shopname and
 // token. The shopName parameter is the shop's myshopify domain,
 // e.g. "theshop.myshopify.com", or simply "theshop"
