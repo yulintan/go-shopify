@@ -21,7 +21,7 @@ type CustomerService interface {
 	Create(Customer) (*Customer, error)
 	Update(Customer) (*Customer, error)
 	Delete(int) error
-	ListOrders(int) ([]Order, error)
+	ListOrders(int, interface{}) ([]Order, error)
 
 	// MetafieldsService used for Customer resource to communicate with Metafields resource
 	MetafieldsService
@@ -168,9 +168,9 @@ func (s *CustomerServiceOp) DeleteMetafield(customerID int, metafieldID int) err
 }
 
 // ListOrders retrieves all orders from a customer
-func (s *CustomerServiceOp) ListOrders(customerID int) ([]Order, error) {
+func (s *CustomerServiceOp) ListOrders(customerID int, options interface{}) ([]Order, error) {
 	path := fmt.Sprintf("%s/%d/orders.json", customersBasePath, customerID)
 	resource := new(OrdersResource)
-	err := s.client.Get(path, resource, nil)
+	err := s.client.Get(path, resource, options)
 	return resource.Orders, err
 }

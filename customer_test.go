@@ -418,9 +418,25 @@ func TestCustomerListOrders(t *testing.T) {
 	httpmock.RegisterResponder(
 		"GET",
 		"https://fooshop.myshopify.com/admin/customers/1/orders.json",
+		httpmock.NewStringResponder(200, "{\"orders\":[]}"),
+	)
+	httpmock.RegisterResponder(
+		"GET",
+		"https://fooshop.myshopify.com/admin/customers/1/orders.json?status=any",
 		httpmock.NewBytesResponder(200, loadFixture("orders.json")),
 	)
-	orders, err := client.Customer.ListOrders(1)
+
+	orders, err := client.Customer.ListOrders(1, nil)
+	if err != nil {
+		t.Errorf("Customer.ListOrders returned error: %v", err)
+	}
+
+	// Check that orders were parsed
+	if len(orders) != 0 {
+		t.Errorf("Customer.ListOrders got %v orders, expected: 1", len(orders))
+	}
+
+	orders, err = client.Customer.ListOrders(1, OrderListOptions{Status: "any"})
 	if err != nil {
 		t.Errorf("Customer.ListOrders returned error: %v", err)
 	}
