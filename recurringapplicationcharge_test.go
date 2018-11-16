@@ -274,10 +274,10 @@ func TestRecurringApplicationChargeServiceOp_Update(t *testing.T) {
 	setup()
 	defer teardown()
 
-	httpmock.RegisterResponder(
+	httpmock.RegisterResponderWithQuery(
 		"PUT",
-		"https://fooshop.myshopify.com/admin/recurring_application_charges/455696195/customize.jso"+
-			"n?recurring_application_charge[capped_amount]=100",
+		"https://fooshop.myshopify.com/admin/recurring_application_charges/455696195/customize.json",
+		map[string]string{"recurring_application_charge[capped_amount]": "100"},
 		httpmock.NewStringResponder(
 			200, `{"recurring_application_charge":{"id":455696195,"capped_amount":"100.00"}}`,
 		),

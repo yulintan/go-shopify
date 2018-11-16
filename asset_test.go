@@ -42,9 +42,13 @@ func TestAssetGet(t *testing.T) {
 	setup()
 	defer teardown()
 
-	httpmock.RegisterResponder(
+	httpmock.RegisterResponderWithQuery(
 		"GET",
-		"https://fooshop.myshopify.com/admin/themes/1/assets.json?asset[key]=foo/bar.liquid&theme_id=1",
+		"https://fooshop.myshopify.com/admin/themes/1/assets.json",
+		map[string]string{
+			"asset[key]": "foo/bar.liquid",
+			"theme_id":   "1",
+		},
 		httpmock.NewStringResponder(
 			200,
 			`{"asset": {"key":"foo\/bar.liquid"}}`,
@@ -93,9 +97,10 @@ func TestAssetDelete(t *testing.T) {
 	setup()
 	defer teardown()
 
-	httpmock.RegisterResponder(
+	httpmock.RegisterResponderWithQuery(
 		"DELETE",
-		"https://fooshop.myshopify.com/admin/themes/1/assets.json?asset[key]=foo/bar.liquid",
+		"https://fooshop.myshopify.com/admin/themes/1/assets.json",
+		map[string]string{"asset[key]": "foo/bar.liquid"},
 		httpmock.NewStringResponder(200, "{}"),
 	)
 

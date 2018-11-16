@@ -58,7 +58,10 @@ func TestSmartCollectionCount(t *testing.T) {
 	httpmock.RegisterResponder("GET", "https://fooshop.myshopify.com/admin/smart_collections/count.json",
 		httpmock.NewStringResponder(200, `{"count": 5}`))
 
-	httpmock.RegisterResponder("GET", "https://fooshop.myshopify.com/admin/smart_collections/count.json?created_at_min=2016-01-01T00:00:00Z",
+	httpmock.RegisterResponderWithQuery(
+		"GET",
+		"https://fooshop.myshopify.com/admin/smart_collections/count.json",
+		map[string]string{"created_at_min": "2016-01-01T00:00:00Z"},
 		httpmock.NewStringResponder(200, `{"count": 2}`))
 
 	cnt, err := client.SmartCollection.Count(nil)
@@ -178,7 +181,10 @@ func TestSmartCollectionCountMetafields(t *testing.T) {
 	httpmock.RegisterResponder("GET", "https://fooshop.myshopify.com/admin/collections/1/metafields/count.json",
 		httpmock.NewStringResponder(200, `{"count": 3}`))
 
-	httpmock.RegisterResponder("GET", "https://fooshop.myshopify.com/admin/collections/1/metafields/count.json?created_at_min=2016-01-01T00:00:00Z",
+	httpmock.RegisterResponderWithQuery(
+		"GET",
+		"https://fooshop.myshopify.com/admin/collections/1/metafields/count.json",
+		map[string]string{"created_at_min": "2016-01-01T00:00:00Z"},
 		httpmock.NewStringResponder(200, `{"count": 2}`))
 
 	cnt, err := client.SmartCollection.CountMetafields(1, nil)

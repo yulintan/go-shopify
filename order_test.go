@@ -89,7 +89,15 @@ func TestOrderListOptions(t *testing.T) {
 	setup()
 	defer teardown()
 
-	httpmock.RegisterResponder("GET", "https://fooshop.myshopify.com/admin/orders.json?fields=id,name&limit=250&page=10&status=any",
+	httpmock.RegisterResponderWithQuery(
+		"GET",
+		"https://fooshop.myshopify.com/admin/orders.json",
+		map[string]string{
+			"fields": "id,name",
+			"limit":  "250",
+			"page":   "10",
+			"status": "any",
+		},
 		httpmock.NewBytesResponder(200, loadFixture("orders.json")))
 
 	options := OrderListOptions{
@@ -171,7 +179,10 @@ func TestOrderCount(t *testing.T) {
 	httpmock.RegisterResponder("GET", "https://fooshop.myshopify.com/admin/orders/count.json",
 		httpmock.NewStringResponder(200, `{"count": 7}`))
 
-	httpmock.RegisterResponder("GET", "https://fooshop.myshopify.com/admin/orders/count.json?created_at_min=2016-01-01T00:00:00Z",
+	httpmock.RegisterResponderWithQuery(
+		"GET",
+		"https://fooshop.myshopify.com/admin/orders/count.json",
+		map[string]string{"created_at_min": "2016-01-01T00:00:00Z"},
 		httpmock.NewStringResponder(200, `{"count": 2}`))
 
 	cnt, err := client.Order.Count(nil)
@@ -248,7 +259,10 @@ func TestOrderCountMetafields(t *testing.T) {
 	httpmock.RegisterResponder("GET", "https://fooshop.myshopify.com/admin/orders/1/metafields/count.json",
 		httpmock.NewStringResponder(200, `{"count": 3}`))
 
-	httpmock.RegisterResponder("GET", "https://fooshop.myshopify.com/admin/orders/1/metafields/count.json?created_at_min=2016-01-01T00:00:00Z",
+	httpmock.RegisterResponderWithQuery(
+		"GET",
+		"https://fooshop.myshopify.com/admin/orders/1/metafields/count.json",
+		map[string]string{"created_at_min": "2016-01-01T00:00:00Z"},
 		httpmock.NewStringResponder(200, `{"count": 2}`))
 
 	cnt, err := client.Order.CountMetafields(1, nil)
@@ -374,7 +388,10 @@ func TestOrderCountFulfillments(t *testing.T) {
 	httpmock.RegisterResponder("GET", "https://fooshop.myshopify.com/admin/orders/1/fulfillments/count.json",
 		httpmock.NewStringResponder(200, `{"count": 3}`))
 
-	httpmock.RegisterResponder("GET", "https://fooshop.myshopify.com/admin/orders/1/fulfillments/count.json?created_at_min=2016-01-01T00:00:00Z",
+	httpmock.RegisterResponderWithQuery(
+		"GET",
+		"https://fooshop.myshopify.com/admin/orders/1/fulfillments/count.json",
+		map[string]string{"created_at_min": "2016-01-01T00:00:00Z"},
 		httpmock.NewStringResponder(200, `{"count": 2}`))
 
 	cnt, err := client.Order.CountFulfillments(1, nil)

@@ -34,7 +34,10 @@ func TestCustomerCount(t *testing.T) {
 	httpmock.RegisterResponder("GET", "https://fooshop.myshopify.com/admin/customers/count.json",
 		httpmock.NewStringResponder(200, `{"count": 5}`))
 
-	httpmock.RegisterResponder("GET", "https://fooshop.myshopify.com/admin/customers/count.json?created_at_min=2016-01-01T00:00:00Z",
+	httpmock.RegisterResponderWithQuery(
+		"GET",
+		"https://fooshop.myshopify.com/admin/customers/count.json",
+		map[string]string{"created_at_min": "2016-01-01T00:00:00Z"},
 		httpmock.NewStringResponder(200, `{"count": 2}`))
 
 	cnt, err := client.Customer.Count(nil)
@@ -310,7 +313,10 @@ func TestCustomerCountMetafields(t *testing.T) {
 	httpmock.RegisterResponder("GET", "https://fooshop.myshopify.com/admin/customers/1/metafields/count.json",
 		httpmock.NewStringResponder(200, `{"count": 3}`))
 
-	httpmock.RegisterResponder("GET", "https://fooshop.myshopify.com/admin/customers/1/metafields/count.json?created_at_min=2016-01-01T00:00:00Z",
+	httpmock.RegisterResponderWithQuery(
+		"GET",
+		"https://fooshop.myshopify.com/admin/customers/1/metafields/count.json",
+		map[string]string{"created_at_min": "2016-01-01T00:00:00Z"},
 		httpmock.NewStringResponder(200, `{"count": 2}`))
 
 	cnt, err := client.Customer.CountMetafields(1, nil)
@@ -420,9 +426,10 @@ func TestCustomerListOrders(t *testing.T) {
 		"https://fooshop.myshopify.com/admin/customers/1/orders.json",
 		httpmock.NewStringResponder(200, "{\"orders\":[]}"),
 	)
-	httpmock.RegisterResponder(
+	httpmock.RegisterResponderWithQuery(
 		"GET",
-		"https://fooshop.myshopify.com/admin/customers/1/orders.json?status=any",
+		"https://fooshop.myshopify.com/admin/customers/1/orders.json",
+		map[string]string{"status": "any"},
 		httpmock.NewBytesResponder(200, loadFixture("orders.json")),
 	)
 

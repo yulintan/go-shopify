@@ -20,9 +20,10 @@ func TestThemeList(t *testing.T) {
 		),
 	)
 
-	httpmock.RegisterResponder(
+	httpmock.RegisterResponderWithQuery(
 		"GET",
-		"https://fooshop.myshopify.com/admin/themes.json?role=main",
+		"https://fooshop.myshopify.com/admin/themes.json",
+		map[string]string{"role": "main"},
 		httpmock.NewStringResponder(
 			200,
 			`{"themes": [{"id":1}]}`,
